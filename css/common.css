@@ -1,0 +1,52 @@
+/* DCM & Co. shared base styles
+   Loaded before each page stylesheet: design tokens, reset, theme toggle, skip link, touch targets and spacing utilities. */
+
+/* ---------- Design tokens (single source of truth; pages only add their own) ---------- */
+:root {
+  --cyan:#45D0F3; --cyan-50:#ECFAFE; --cyan-600:#1FA9CE; --cyan-700:#0B7490;
+  --ink:#0F1720; --ink-2:#1B2633;
+  --bg:#F6F8FA; --line:#E1E7ED; --line-strong:#CBD6E0; --muted:#55616D; --label:#33414E;
+  --danger:#E5484D;                 /* shapes, dots, bars */
+  --danger-strong:#C8353A;          /* red text, or white text on red (AA contrast) */
+  --warn:#F5A524; --warn-text:#8A5700;
+  --ok-text:#14704A;
+}
+html[data-theme="dark"] {
+  color-scheme:dark;
+  --cyan-50:rgba(69,208,243,.12); --cyan-700:#74DDF8;
+  --bg:#0B1218; --line:#25323E; --muted:#9BABB9; --label:#C6D3DE;
+  --warn-text:#F6C26B; --ok-text:#5FD6A2;
+  --d-surface:#121C25; --d-surface2:#18242F; --d-text:#E7EEF4;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
+a { color:inherit; text-decoration:none; }
+
+/* ---------- Light / dark toggle ---------- */
+.theme-toggle {
+  flex:none; width:44px; height:44px; border-radius:12px; display:grid; place-items:center; cursor:pointer;
+  border:1px solid var(--line); background:#fff; color:var(--ink); transition:border-color .2s, color .2s, background .2s;
+}
+.theme-toggle svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.theme-toggle:hover { border-color:var(--cyan); color:var(--cyan-700); }
+.theme-toggle:focus-visible { outline:3px solid rgba(69,208,243,.5); outline-offset:2px; }
+.theme-toggle .sun { display:none; }
+html[data-theme="dark"] .theme-toggle .sun { display:block; }
+html[data-theme="dark"] .theme-toggle .moon { display:none; }
+
+/* ---------- Accessibility ---------- */
+.skip-link{position:fixed;left:12px;top:-60px;z-index:1000;background:#0F1720;color:#fff;padding:10px 16px;border-radius:10px;font-weight:600;font-size:14px;transition:top .15s ease}
+.skip-link:focus{top:12px;outline:2px solid #45D0F3;outline-offset:2px}
+@media (pointer:coarse){
+  input[type="checkbox"],input[type="radio"]{width:20px;height:20px}
+  .tap,.back,.link{display:inline-flex;align-items:center;min-height:44px}
+  .brand{min-height:44px;justify-content:center}
+}
+
+/* ---------- Spacing utilities (replace one-off inline styles) ---------- */
+.mt-0{margin-top:0 !important}.mt-12{margin-top:12px !important}.mt-14{margin-top:14px !important}.mt-22{margin-top:22px !important}
+.mb-0{margin-bottom:0 !important}.mb-12{margin-bottom:12px !important}.mb-16{margin-bottom:16px !important}.mb-22{margin-bottom:22px !important}
+.m-0-0-14{margin:0 0 14px !important}.ml-auto{margin-left:auto !important}.pb-0{padding-bottom:0 !important}.fs-17{font-size:17px !important}
+.struck{text-decoration:line-through;color:var(--muted)}
+.sprite{position:absolute;width:0;height:0}

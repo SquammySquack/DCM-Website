@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Dashboard | DCM & Co.</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%230F1720%27/%3E%3Ctext x=%2716%27 y=%2722%27 font-family=%27Arial%27 font-size=%2714%27 font-weight=%27800%27 text-anchor=%27middle%27 fill=%27%2345D0F3%27%3EDC%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/clientside.css">
+<script src="js/theme.js"></script>
+<script src="js/guard.js" data-role="client"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<!-- Icon set -->
+<svg class="sprite" width="0" height="0" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v4h16v-4"/></symbol>
+  <symbol id="i-wallet" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h13v4"/><path d="M3 7v11a2 2 0 002 2h15V9H5a2 2 0 01-2-2z"/><circle cx="16.5" cy="14.5" r="1"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4"/><path d="M5 4h12l-2 4 2 4H5"/></symbol>
+  <symbol id="i-report" viewBox="0 0 24 24"><path d="M6 2h12v20l-3-2-3 2-3-2-3 2V2z"/><path d="M9 8h6M9 12h6"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 12a8 8 0 01-11.5 7.2L4 20l1-4.5A8 8 0 1121 12z"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1.1-1.5 1.7 1.7 0 00-1.8.3l-.1.1a2 2 0 11-2.8-2.8l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1.1 1.7 1.7 0 00-.3-1.8l-.1-.1a2 2 0 112.8-2.8l.1.1a1.7 1.7 0 001.8.3H9a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.3 3.9L2.4 18a2 2 0 001.7 3h15.8a2 2 0 001.7-3L13.7 3.9a2 2 0 00-3.4 0z"/><path d="M12 9v4M12 17h.01"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16z"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v12M7 11l5 5 5-5"/><path d="M4 20h16"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+  <symbol id="i-scan" viewBox="0 0 24 24"><path d="M4 7V5a1 1 0 011-1h2M17 4h2a1 1 0 011 1v2M20 17v2a1 1 0 01-1 1h-2M7 20H5a1 1 0 01-1-1v-2"/><path d="M8 12h8"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-flip" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0115.5-6.2L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 01-15.5 6.2L3 16"/><path d="M3 21v-5h5"/></symbol>
+</svg>
+
+<div class="app" id="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Main navigation">
+    <a href="index.html" class="brand" aria-label="DCM & Co. home">
+      <span class="brand-name"><span class="c">DCM</span> & Co.</span>
+      <span class="brand-sub">Client Portal</span>
+    </a>
+
+    <div class="nav-label">Menu</div>
+    <ul class="nav-menu grow">
+      <li><a href="#dashboard" data-view="dashboard"><svg class="ico"><use href="#i-home"/></svg>Dashboard</a></li>
+      <li><a href="#upload" data-view="upload"><svg class="ico"><use href="#i-upload"/></svg>Upload Documents</a></li>
+      <li><a href="#spending" data-view="spending"><svg class="ico"><use href="#i-wallet"/></svg>Spending Tracker</a></li>
+      <li><a href="#fraud" data-view="fraud"><svg class="ico"><use href="#i-shield"/></svg>Fraud &amp; Anomalies<span class="nav-count" id="navFx" hidden>0</span></a></li>
+      <li><a href="#reports" data-view="reports"><svg class="ico"><use href="#i-report"/></svg>Financial Reports</a></li>
+      <li><a href="#messages" data-view="messages"><svg class="ico"><use href="#i-message"/></svg>Messages</a></li>
+    </ul>
+
+    <ul class="nav-menu nav-bottom">
+      <li><a href="#settings" data-view="settings"><svg class="ico"><use href="#i-settings"/></svg>Settings</a></li>
+      <li><a href="loginpage.html" id="logoutLink"><svg class="ico"><use href="#i-logout"/></svg>Log Out</a></li>
+    </ul>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Topbar -->
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu"><svg class="ico"><use href="#i-menu"/></svg></button>
+      <label class="search">
+        <svg class="ico"><use href="#i-search"/></svg>
+        <input type="text" id="searchInput" placeholder="Search receipts, vendors, or reports..." aria-label="Search" autocomplete="off">
+      </label>
+      <button type="button" class="theme-toggle" data-theme-toggle aria-label="Switch to dark mode" aria-pressed="false" title="Switch to dark mode"><svg class="ico moon"><use href="#i-moon"/></svg><svg class="ico sun"><use href="#i-sun"/></svg></button>
+      <div class="user">
+        <div class="user-text">
+          <strong id="userName">Welcome, Client</strong>
+          <span>Client</span>
+        </div>
+        <div class="avatar" id="userAvatar" aria-hidden="true">C</div>
+      </div>
+    </header>
+
+    <main class="content" id="main" tabindex="-1">
+
+      <!-- ===================== DASHBOARD ===================== -->
+      <div class="view" id="view-dashboard">
+        <div class="page-head">
+          <div>
+            <h1>Your Financial Overview</h1>
+            <p>Where your money went, what we still need from you, and anything worth a look.</p>
+          </div>
+          <span class="chip"><i></i> Sample data</span>
+        </div>
+
+        <div class="grid-top">
+          <section class="card" aria-labelledby="spend-title">
+            <div class="card-head">
+              <h3 aria-level="2" id="spend-title"><svg class="ico"><use href="#i-wallet"/></svg>Smart Spending Tracker</h3>
+              <a href="#spending" class="link">See spending breakdown</a>
+            </div>
+            <div class="spending">
+              <div class="spending-legend" id="spendLegend">
+                <div class="legend-row"><span class="name"><span class="dot cyan"></span>Operational</span><span><span class="amt">₱45,000</span><span class="pct">45%</span></span></div>
+                <div class="legend-row"><span class="name"><span class="dot warn"></span>Utilities</span><span><span class="amt">₱30,000</span><span class="pct">30%</span></span></div>
+                <div class="legend-row"><span class="name"><span class="dot danger"></span>Misc/Other</span><span><span class="amt">₱25,000</span><span class="pct">25%</span></span></div>
+              </div>
+              <div class="donut" id="spendDonut" role="img" aria-label="Spending split by category">
+                <div class="donut-text"><strong id="donutTotal">₱0</strong><span>Total Spend</span></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="card" aria-labelledby="doc-title">
+            <div class="card-head">
+              <h3 aria-level="2" id="doc-title"><svg class="ico"><use href="#i-folder"/></svg>Document Requests</h3>
+            </div>
+            <div class="doc-list">
+              <div class="doc-item"><span>January Receipts</span><span class="badge pending">Pending</span></div>
+              <div class="doc-item"><span>Q1 Bank Statements</span><span class="badge verified">Verified</span></div>
+              <div class="doc-item"><span>BIR Form 2307</span><span class="badge overdue">Overdue</span></div>
+            </div>
+            <button type="button" class="btn" data-go="upload"><svg class="ico"><use href="#i-upload"/></svg>Upload the missing files</button>
+          </section>
+        </div>
+
+        <section class="card" aria-labelledby="tx-title">
+          <div class="card-head">
+            <h3 aria-level="2" id="tx-title">Recent Transactions</h3>
+            <a href="#spending" class="link">See all transactions</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Vendor Name</th><th>Invoice Date</th><th>Category</th><th class="amount">Amount</th><th></th></tr></thead>
+              <tbody id="txRecent"></tbody>
+            </table>
+          </div>
+          <div class="empty" hidden>We couldn’t find a match. Try a different word.</div>
+
+          <div class="alert" id="dashAlert" role="alert" hidden>
+            <svg class="ico"><use href="#i-alert"/></svg>
+            <p id="dashAlertText"></p>
+          </div>
+        </section>
+      </div>
+
+      <!-- ===================== UPLOAD ===================== -->
+      <div class="view" id="view-upload" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Upload Documents</h1>
+            <p>Send your receipts, invoices and statements. Your CPA team checks every document and tells you here if anything looks off.</p>
+          </div>
+        </div>
+
+        <div class="grid-top">
+          <section class="card">
+            <div class="card-head"><h3 aria-level="2"><svg class="ico"><use href="#i-upload"/></svg>Send a document</h3></div>
+
+            <div class="field">
+              <label for="docType">Document type</label>
+              <select class="select" id="docType">
+                <option>Receipt</option>
+                <option>Invoice</option>
+                <option>Bank Statement</option>
+                <option>Financial Statement</option>
+                <option>BIR Form</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="dropzone" id="dropzone" tabindex="0" role="button" aria-label="Choose files to upload">
+              <svg class="ico"><use href="#i-upload"/></svg>
+              <strong>Drop files here, or click to browse</strong>
+              <span>PDF, JPG or PNG. Up to 10 MB each.</span>
+              <input type="file" aria-label="Choose files to upload" id="fileInput" multiple accept=".pdf,.jpg,.jpeg,.png" hidden>
+            </div>
+
+            <div class="field-error block" id="uploadErr" role="alert" hidden></div>
+
+            <div class="files" id="queue"></div>
+
+            <div class="btn-row">
+              <button type="button" class="btn inline" id="submitFiles" disabled>Send to my CPA</button>
+              <button type="button" class="btn inline ghost" id="clearFiles" disabled>Remove all</button>
+            </div>
+          </section>
+
+          <section class="card">
+            <div class="card-head"><h3 aria-level="2"><svg class="ico"><use href="#i-folder"/></svg>What your CPA is waiting for</h3></div>
+            <div class="doc-list mb-0">
+              <div class="doc-item"><span>January Receipts</span><span class="badge pending">Pending</span></div>
+              <div class="doc-item"><span>Q1 Bank Statements</span><span class="badge verified">Verified</span></div>
+              <div class="doc-item"><span>BIR Form 2307</span><span class="badge overdue">Overdue</span></div>
+            </div>
+          </section>
+        </div>
+
+        <section class="card">
+          <div class="card-head"><h3 aria-level="2">Submitted documents</h3></div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>File</th><th>Type</th><th>Size</th><th>Submitted</th><th>Status</th></tr></thead>
+              <tbody id="uploadsBody"></tbody>
+            </table>
+          </div>
+          <div class="empty" id="uploadsEmpty">Nothing sent yet. Upload a document and it will show up here.</div>
+        </section>
+      </div>
+
+      <!-- ===================== SPENDING ===================== -->
+      <div class="view" id="view-spending" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Spending Tracker</h1>
+            <p>See where your money goes and how it changes over time.</p>
+          </div>
+          <span class="chip"><i></i> Sample data</span>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><small>Total spend</small><strong id="statTotal">₱0</strong><span id="statTotalSub">Nothing recorded yet</span></div>
+          <div class="stat"><small>Largest category</small><strong id="statLargest">—</strong><span id="statLargestSub">Add a transaction to see this</span></div>
+          <div class="stat"><small>Transactions</small><strong id="statCount">0</strong><span id="statCountSub">Nothing recorded yet</span></div>
+        </div>
+
+        <section class="card addtx-card" aria-labelledby="addtx-title">
+          <div class="card-head">
+            <h3 aria-level="2" id="addtx-title"><svg class="ico"><use href="#i-plus"/></svg>Add a transaction</h3>
+            <div class="seg" role="tablist" aria-label="How to add a transaction">
+              <button type="button" class="seg-btn" id="tabManual" role="tab" aria-selected="true" aria-controls="panelManual">Enter manually</button>
+              <button type="button" class="seg-btn" id="tabScan" role="tab" aria-selected="false" aria-controls="panelScan">Scan a receipt</button>
+            </div>
+          </div>
+
+          <div id="panelManual" role="tabpanel" aria-labelledby="tabManual">
+            <form novalidate id="txForm" autocomplete="off">
+              <div class="form-grid">
+                <div class="field">
+                  <label for="txVendor">Vendor</label>
+                  <input class="input" id="txVendor" type="text" maxlength="60" placeholder="e.g. Meralco" required>
+                </div>
+                <div class="field">
+                  <label for="txAmount">Amount (₱)</label>
+                  <input class="input" id="txAmount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00" required>
+                </div>
+                <div class="field">
+                  <label for="txDate">Invoice date</label>
+                  <input class="input" id="txDate" type="date" required>
+                </div>
+                <div class="field">
+                  <label for="txCat">Category</label>
+                  <select class="select" id="txCat">
+                    <option>Operational</option>
+                    <option>Utilities</option>
+                    <option>Misc/Other</option>
+                  </select>
+                </div>
+                <div class="field span2">
+                  <label for="txNote">Description <span class="muted small">(optional)</span></label>
+                  <input class="input" id="txNote" type="text" maxlength="60" placeholder="e.g. October electricity bill">
+                </div>
+              </div>
+              <div class="btn-row">
+                <button type="submit" class="btn inline"><svg class="ico"><use href="#i-plus"/></svg>Add transaction</button>
+                <button type="button" class="btn inline ghost" id="txReset">Clear</button>
+              </div>
+            </form>
+          </div>
+
+          <div id="panelScan" role="tabpanel" aria-labelledby="tabScan" hidden>
+            <div class="scan-start">
+              <button type="button" class="btn inline" data-scan-open><svg class="ico"><use href="#i-camera"/></svg>Open camera</button>
+              <p class="muted small">Fit the receipt in the frame and take the photo. We read it and add it to your tracker for you.</p>
+            </div>
+            <div class="dropzone" id="receiptZone" tabindex="0" role="button" aria-label="Choose a receipt photo to read">
+              <svg class="ico"><use href="#i-scan"/></svg>
+              <strong id="scanDropTitle">Or drop a receipt photo, or click to browse</strong>
+              <span id="scanDropSub">JPG or PNG. We read the vendor, date and total, then add it to your tracker.</span>
+              <input type="file" aria-label="Choose a receipt photo" id="receiptInput" accept="image/*" hidden>
+            </div>
+            <div class="field-error block" id="receiptErr" role="alert" hidden></div>
+            <div class="ocr-status" id="ocrStatus" role="status" aria-live="polite" hidden></div>
+            <div class="ocr-result" id="ocrResult" hidden></div>
+            <p class="muted small mt-14">The photo is read in your browser and never uploaded.</p>
+          </div>
+        </section>
+
+        <div class="grid-2">
+          <section class="card">
+            <div class="card-head"><h3 aria-level="2">By category</h3></div>
+            <div id="catBars"></div>
+          </section>
+
+          <section class="card">
+            <div class="card-head"><h3 aria-level="2">Monthly spend</h3></div>
+            <div class="chart" id="monthChart" role="img" aria-label="Monthly spending, July to October"></div>
+          </section>
+        </div>
+
+        <section class="card">
+          <div class="toolbar">
+            <h3 aria-level="2" class="fs-17">All transactions</h3>
+            <select class="select" id="catFilter" aria-label="Filter by category">
+              <option value="all">All categories</option>
+              <option>Operational</option>
+              <option>Utilities</option>
+              <option>Misc/Other</option>
+            </select>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Vendor Name</th><th>Invoice Date</th><th>Category</th><th class="amount">Amount</th><th></th></tr></thead>
+              <tbody id="txFull"></tbody>
+            </table>
+          </div>
+          <div class="empty" id="txEmpty" hidden>Nothing fits these filters. Try loosening them.</div>
+        </section>
+      </div>
+
+      <!-- ===================== FRAUD & ANOMALIES ===================== -->
+      <div class="view" id="view-fraud" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Fraud &amp; Anomalies</h1>
+            <p>Your CPA team checks every document you upload. If they find anything unusual, it shows up here with what to do next.</p>
+          </div>
+        </div>
+
+        <div class="stats four">
+          <div class="stat"><small>Documents sent</small><strong id="fxStatSent">0</strong><span id="fxStatSentSub">Uploaded for review</span></div>
+          <div class="stat"><small>Checked by your CPA</small><strong id="fxStatChecked">0</strong><span>Receipts and statements</span></div>
+          <div class="stat red"><small>Documents flagged</small><strong id="fxStatDocFlag">0</strong><span>Need a closer look</span></div>
+          <div class="stat red"><small>Statements flagged</small><strong id="fxStatStmtFlag">0</strong><span>With anomalies</span></div>
+        </div>
+
+        <div class="fx-wait" id="fxWait" hidden>
+          <svg class="ico"><use href="#i-file"/></svg>
+          <p id="fxWaitText"></p>
+          <button type="button" class="btn inline sm ghost" data-go="upload">Upload more</button>
+        </div>
+
+        <div class="seg fx-tabs" role="tablist" aria-label="Fraud and anomaly checks">
+          <button type="button" class="seg-btn" id="fxTabDocs" role="tab" aria-selected="true" aria-controls="fxPanelDocs">Document fraud<span class="fx-pill" id="fxTabDocsN" hidden>0</span></button>
+          <button type="button" class="seg-btn" id="fxTabStmts" role="tab" aria-selected="false" aria-controls="fxPanelStmts">Financial statement anomalies<span class="fx-pill" id="fxTabStmtsN" hidden>0</span></button>
+        </div>
+
+        <div id="fxPanelDocs" role="tabpanel" aria-labelledby="fxTabDocs">
+          <section class="card">
+            <div class="toolbar">
+              <h3 aria-level="2" class="fs-17">Documents your CPA has checked</h3>
+              <select class="select" id="fxFilter" aria-label="Filter documents">
+                <option value="all">All documents</option>
+                <option value="flagged">Flagged only</option>
+                <option value="clear">Clear only</option>
+              </select>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>Document</th><th>Amount</th><th>What they noticed</th><th>Authenticity</th></tr></thead>
+                <tbody id="fxRows"></tbody>
+              </table>
+            </div>
+            <div class="empty" id="fxDocsEmpty" hidden>Nothing fits this filter. Try another one.</div>
+            <div class="empty" id="fxDocsNone" hidden>No documents have been checked yet. Upload a receipt or invoice and your CPA team will review it.</div>
+          </section>
+
+          <h2 class="fx-h2" id="fxFoundHead" hidden>What they found</h2>
+          <div class="flag-list" id="fxFound"></div>
+        </div>
+
+        <div id="fxPanelStmts" role="tabpanel" aria-labelledby="fxTabStmts" hidden>
+          <div class="fx-engine">
+            <span class="fx-model"><svg class="ico"><use href="#i-shield"/></svg>Statement check</span>
+            <p>Upload a bank or financial statement and your CPA team checks that the figures add up, balance and make sense next to each other.</p>
+            <button type="button" class="btn inline sm" data-go="upload"><svg class="ico"><use href="#i-upload"/></svg>Upload a statement</button>
+          </div>
+          <div class="flag-list" id="fxStmts"></div>
+        </div>
+      </div>
+
+      <!-- ===================== REPORTS ===================== -->
+      <div class="view" id="view-reports" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Financial Reports</h1>
+            <p>Download your reports as CSV files that open in Excel or Google Sheets.</p>
+          </div>
+          <span class="chip"><i></i> Sample data</span>
+        </div>
+        <section class="card">
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Report</th><th>Period</th><th>Format</th><th></th></tr></thead>
+              <tbody>
+                <tr class="filterable">
+                  <td><div class="report-name"><div class="tile"><svg class="ico"><use href="#i-report"/></svg></div><div><strong>Transactions Report</strong><span>Every transaction with vendor, date, category and status</span></div></div></td>
+                  <td>October 2026</td><td>CSV</td>
+                  <td><button type="button" class="btn inline sm ghost" data-report="transactions"><svg class="ico"><use href="#i-download"/></svg>Download CSV</button></td>
+                </tr>
+                <tr class="filterable">
+                  <td><div class="report-name"><div class="tile"><svg class="ico"><use href="#i-wallet"/></svg></div><div><strong>Spending Summary</strong><span>Totals and share of spend per category</span></div></div></td>
+                  <td>October 2026</td><td>CSV</td>
+                  <td><button type="button" class="btn inline sm ghost" data-report="spending"><svg class="ico"><use href="#i-download"/></svg>Download CSV</button></td>
+                </tr>
+                <tr class="filterable">
+                  <td><div class="report-name"><div class="tile"><svg class="ico"><use href="#i-flag"/></svg></div><div><strong>Fraud and Anomaly Report</strong><span>Flagged documents, statement anomalies and the reason for each</span></div></div></td>
+                  <td>October 2026</td><td>CSV</td>
+                  <td><button type="button" class="btn inline sm ghost" data-report="fraud"><svg class="ico"><use href="#i-download"/></svg>Download CSV</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="empty" hidden>We couldn’t find a report that matches. Try a different word.</div>
+        </section>
+      </div>
+
+      <!-- ===================== MESSAGES ===================== -->
+      <div class="view" id="view-messages" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Messages</h1>
+            <p>The Messages feature provides a secure, built-in chat interface for the client to communicate directly with their CPA team regarding missing documents or flagged items.</p>
+          </div>
+        </div>
+        <div class="msg-tabs" role="tablist" aria-label="Who do you want to talk to?">
+          <button type="button" role="tab" class="msg-tab active" data-pane="cpa" aria-selected="true">Your CPA team</button>
+          <button type="button" role="tab" class="msg-tab" data-pane="ai" aria-selected="false">AI assistant</button>
+        </div>
+        <section class="card chat" id="paneCPA">
+          <div class="chat-head">
+            <div class="avatar" aria-hidden="true">DC</div>
+            <div><strong>Your CPA Team</strong><span>DCM & Co. Certified Public Accountants</span></div>
+            <button type="button" class="btn inline sm ghost ml-auto" id="clearMsgs" hidden>Clear my messages</button>
+          </div>
+          <div class="chat-body" id="chatBody" aria-live="polite"></div>
+          <form novalidate class="chat-form" id="chatForm" autocomplete="off">
+            <input class="input" id="chatInput" type="text" placeholder="Type your message to your CPA team..." aria-label="Message">
+            <button type="submit" class="btn inline"><svg class="ico"><use href="#i-send"/></svg>Send</button>
+          </form>
+        </section>
+        <section class="card chat ai" id="paneAI" hidden>
+          <div class="chat-head">
+            <div class="avatar ai-avatar" aria-hidden="true"><svg class="ico"><use href="#i-spark"/></svg></div>
+            <div><strong>DCM Assistant</strong><span>AI helper &middot; it can explain, but your CPA makes the final call</span></div>
+            <button type="button" class="btn inline sm ghost ml-auto" id="aiClear" hidden>Start over</button>
+          </div>
+          <div class="chat-body" id="aiBody" aria-live="polite"></div>
+          <div class="ai-chips" id="aiChips"></div>
+          <form novalidate class="chat-form" id="aiForm" autocomplete="off">
+            <input class="input" id="aiInput" type="text" maxlength="400" placeholder="Ask anything, like &ldquo;Why was my receipt flagged?&rdquo;" aria-label="Your question">
+            <button type="submit" class="btn inline" id="aiSend"><svg class="ico"><use href="#i-send"/></svg>Ask</button>
+          </form>
+        </section>
+      </div>
+
+      <!-- ===================== SETTINGS ===================== -->
+      <div class="view" id="view-settings" hidden>
+        <div class="page-head">
+          <div>
+            <h1>Settings</h1>
+            <p>Update your name and choose what we let you know about.</p>
+          </div>
+        </div>
+
+        <form novalidate id="settingsForm">
+          <section class="card settings-card">
+            <div class="card-head"><h3 aria-level="2">Profile</h3></div>
+            <div class="field">
+              <label for="setName">Display name</label>
+              <input class="input" id="setName" type="text" maxlength="40" required>
+            </div>
+            <div class="field mb-0">
+              <label for="setEmail">Email</label>
+              <input class="input" id="setEmail" type="email" readonly>
+            </div>
+          </section>
+
+          <section class="card settings-card">
+            <div class="card-head"><h3 aria-level="2">Notifications</h3></div>
+            <div class="pref">
+              <div><strong>Fraud alerts</strong><span>Tell me when my CPA flags something in a document</span></div>
+              <label class="switch"><input type="checkbox" id="prefFlag" aria-label="Fraud alerts"><span class="slider"></span></label>
+            </div>
+            <div class="pref">
+              <div><strong>Document reminders</strong><span>Remind me about pending and overdue requests</span></div>
+              <label class="switch"><input type="checkbox" id="prefDocs" aria-label="Document reminders"><span class="slider"></span></label>
+            </div>
+            <div class="pref">
+              <div><strong>Weekly summary</strong><span>Send a weekly spending summary</span></div>
+              <label class="switch"><input type="checkbox" id="prefWeekly" aria-label="Weekly summary"><span class="slider"></span></label>
+            </div>
+          </section>
+
+          <button type="submit" class="btn inline">Save my settings</button>
+        </form>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- Receipt camera -->
+<div class="scanner" id="scanner" role="dialog" aria-modal="true" aria-label="Scan a document" hidden>
+  <video class="scan-video" id="scanVideo" playsinline muted autoplay hidden></video>
+  <div class="scan-bg" aria-hidden="true"></div>
+
+  <div class="scan-top">
+    <button type="button" class="scan-circle" id="scanClose" aria-label="Close camera"><svg class="ico"><use href="#i-x"/></svg></button>
+    <div class="scan-hint" id="scanHint">Snap the receipt</div>
+    <button type="button" class="scan-circle" id="scanFlash" aria-label="Toggle flash" aria-pressed="false"><svg class="ico"><use href="#i-bolt"/></svg></button>
+  </div>
+
+  <div class="vf-wrap">
+    <div class="vf" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><span class="scan-line"></span></div>
+    <p class="scan-msg" id="scanMsg" hidden></p>
+  </div>
+
+  <div class="scan-bottom">
+    <button type="button" class="scan-circle lg" id="scanGallery" aria-label="Choose a photo from your device"><svg class="ico"><use href="#i-image"/></svg></button>
+    <button type="button" class="shutter" id="scanShutter" aria-label="Take photo"><span></span></button>
+    <button type="button" class="scan-circle lg" id="scanFlip" aria-label="Switch camera"><svg class="ico"><use href="#i-flip"/></svg></button>
+  </div>
+
+  <input type="file" aria-label="Choose a photo to scan" id="scanFile" accept="image/*" hidden>
+  <div class="scan-flash-fx" id="scanFx" aria-hidden="true"></div>
+
+  <div class="scan-sheet" id="scanSheet" hidden>
+    <div class="sheet-row">
+      <div class="scan-thumb" id="scanThumb"><svg class="ico"><use href="#i-scan"/></svg></div>
+      <div>
+        <h3 aria-level="2" id="scanSheetTitle">Photo taken</h3>
+        <p id="scanSheetText">We'll read the vendor, date and total, then add it to your tracker.</p>
+      </div>
+    </div>
+    <div class="btn-row">
+      <button type="button" class="btn primary" id="scanUse">Read this receipt</button>
+      <button type="button" class="btn ghost" id="scanRetake">Retake</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/core.js"></script>
+<script src="js/client.js"></script>
+</body>
+</html>
